@@ -1,0 +1,55 @@
+MAP
+  NAME "test"
+  EXTENT -137 29 -53 88
+  UNITS DD
+  SHAPEPATH "data/"
+  SIZE 800 600
+  CONFIG "ON_MISSING_DATA" "FAIL"
+
+  IMAGETYPE PNG24
+
+  PROJECTION
+    "init=epsg:4326"
+  END
+
+  WEB
+    TEMPPATH "/tmp/"
+    IMAGEPATH "/tmp/"
+    METADATA
+      ows_enable_request "*"
+    END
+  END
+
+  LAYER
+    NAME "Admin"
+    STATUS DEFAULT
+    TYPE POLYGON
+    DATA "ne_10m_admin_0_countries"
+    CLASS
+      STYLE
+        COLOR 246 241 223
+        OUTLINECOLOR 0 0 0
+      END
+    END
+  END
+
+  LAYER
+  NAME "Lakes"
+  STATUS DEFAULT
+  TYPE POLYGON
+    DATA "ne_10m_lakes"
+  CLASSITEM "ScaleRank"
+  CLASS
+    EXPRESSION /0|1/
+    STYLE
+      COLOR 153 179 204
+      OUTLINECOLOR 0 0 0
+    END
+  END
+  CLASS
+    STYLE
+      COLOR 153 179 204
+    END
+  END
+END
+END
