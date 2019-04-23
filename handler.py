@@ -61,6 +61,7 @@ def mapserv(event, context):
     headers['Access-Control-Allow-Origin']='*'
     headers['Access-Control-Allow-Headers']='Content-Type'
     headers['Access-Control-Allow-Methods']='OPTIONS,GET'
+    headers['Cache-Control']='max-age=31536000'
 
 
     if value=='image/png':
