@@ -19,7 +19,12 @@ MAP
       ows_enable_request "*"
     END
   END
-
+LAYER
+STATUS DEFAULT
+        NAME        naturalearth
+        DATA        "/vsicurl/https://s3-us-west-1.amazonaws.com/mapserverlessdata/naturalearth.tif"
+        TYPE        RASTER
+    END
   LAYER
     NAME "Admin"
     STATUS DEFAULT
@@ -27,7 +32,6 @@ MAP
     DATA "ne_10m_admin_0_countries"
     CLASS
       STYLE
-        COLOR 246 241 223
         OUTLINECOLOR 0 0 0
       END
     END
@@ -52,4 +56,5 @@ MAP
     END
   END
 END
+
 END

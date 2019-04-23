@@ -6,9 +6,12 @@ from subprocess import check_output
 from urllib.parse import urlencode
 import base64
 from pathlib import Path
+import time
 
 
 def mapserv(event, context):
+    start=time.time()
+    print(1, time.time()-start)
     queryparams=event['queryStringParameters'] or {}
     
 
@@ -54,7 +57,11 @@ def mapserv(event, context):
             }
 
     headers={}
+    print(2, time.time()-start)
+
     header, body = check_output(['mapserv']).split(b'\r\n\r\n',1)
+    print(3, time.time()-start)
+
     header=header.decode()
     key, value = header.split(': ',1)
     headers[key]=value
@@ -65,7 +72,9 @@ def mapserv(event, context):
 
 
     if value=='image/png':
+        print(4, time.time()-start)
         response=base64.encodebytes(body).decode()
+        print(5, time.time()-start)
         b64="true"
     else:
         response=body.decode()
@@ -78,4 +87,5 @@ def mapserv(event, context):
         "isBase64Encoded": b64
     }
 
+    print(6, time.time()-start)
     return response

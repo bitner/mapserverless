@@ -3,7 +3,7 @@ provider:
   name: aws
   runtime: python3.6
   region: us-west-1
-  memorySize: 128
+  memorySize: 512
   timeout: 30
 plugins:
   - serverless-apigw-binary
@@ -13,10 +13,24 @@ custom:
     types:
       - '*/*'
 
+environment:
+    GDAL_CACHEMAX: 128
+    GDAL_TIFF_OVR_BLOCKSIZE: 512
+    VSI_CACHE: TRUE
+    VSI_CACHE_SIZE: 128000
+    GDAL_DISABLE_READDIR_ON_OPEN: "EMPTY_DIR"
+    GDAL_DATA: /opt/share/gdal
+    PROJ_LIB: /opt/share/proj
+    GDAL_HTTP_MERGE_CONSECUTIVE_RANGES: YES
+    GDAL_HTTP_MULTIPLEX: YES
+    GDAL_HTTP_VERSION: 2
+    CPL_VSIL_CURL_ALLOWED_EXTENSIONS: ".TIF,.tif,.jp2,.vrt"
+    CPL_TMPDIR: "/tmp"
+
 functions:
   mapserv:
     layers:
-      - arn:aws:lambda:us-west-1:081097954549:layer:mapserv:4
+      - arn:aws:lambda:us-west-1:081097954549:layer:mapserv:5
     handler: handler.mapserv
     events:
       - http:
